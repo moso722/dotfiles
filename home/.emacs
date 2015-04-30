@@ -7,11 +7,6 @@
   (setq load-path (cons default-directory load-path))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; 個人設定
-(setq user-full-name "Satoshi Fujioka")                  ; 名前
-(setq user-mail-address "moso722@gmail.com")             ; メールアドレス
-(setq user-home-directory "c:/Users/fujioka015/Home")    ; ホームディレクトリ
-
 :; 初期フレームの設定
 (setq default-frame-alist
       (append (list
@@ -24,6 +19,10 @@
                '(width            . 90)                  ; 横サイズ
                '(height           . 40))                 ; 縦サイズ
               default-frame-alist))
+
+;; 起動時はホームディレクトリで dired を呼び出す
+(setq user-home-directory "c:/Users/fujioka015/Home")
+(dired user-home-directory)
 
 ;; インデントをスペースにする
 (setq indent-tabs-mode nil)
@@ -44,10 +43,6 @@
 ;; モードラインにカーソル位置の行数・列数を表示
 (line-number-mode t)
 (column-number-mode t)
-
-;; killing buffer を履歴表示して yank するものを選ぶ
-(when (locate-library "kill-summary")
-  (autoload 'kill-summary "kill-summary" nil t))
 
 ;; モードラインに日付時刻を表示
 (setq dayname-j-alist
@@ -95,9 +90,6 @@
 (setq ls-lisp-dirs-first t)
 (setq find-ls-option '("-exec ls -AFGl {} \\;" . "-AFGl"))
 (setq grep-find-command "find . -type f -print0 | xargs -0 -e grep -ns ")
-
-;; 起動時は以下のディレクトリで dired を呼び出す
-(dired user-home-directory)
 
 ;; RET時に新しくバッファを作成しない
 (put 'dired-find-alternate-file 'disabled nil)
@@ -262,7 +254,6 @@
 
 (global-set-key "\C-h" 'backward-delete-char)      ; バックスペース
 (global-set-key "\C-j" 'dabbrev-expand)            ; 入力補完
-(global-set-key "\M-y" 'kill-summary)              ; kill-summary
 (global-set-key "\C-c\C-r" 'revert-buffer)         ; revert-buffer
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
